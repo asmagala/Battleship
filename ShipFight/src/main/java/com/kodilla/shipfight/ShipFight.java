@@ -46,8 +46,9 @@ public class ShipFight extends Application {
         caption.setFont(Font.font("Verdana", 15));
 
         Rect pRect = new Rect();
-        pRect.setX(500);
-        pRect.setY(420);
+        pRect.setDefaultPosition(500, 420);
+        //pRect.setX(500);
+        //pRect.setY(420);
         pRect.setHeight(fieldLength);
         pRect.setWidth(fieldLength);
         pRect.setFill(Color.TRANSPARENT);
@@ -89,8 +90,9 @@ public class ShipFight extends Application {
                 pRect.setX(offsetXSecond + fieldLength * X);
                 pRect.setY(offsetYSecond + fieldLength * Y);
             } else {
-                pRect.setX(500);
-                pRect.setY(420);
+                //pRect.setX(500);
+                //pRect.setY(420);
+                pRect.setPosition2Default();
             }
         });
 
