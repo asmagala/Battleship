@@ -1,9 +1,11 @@
 package com.kodilla.shipfight;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Control;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.scene.text.Font;
@@ -43,20 +45,38 @@ public class ShipFight extends Application {
         caption.setFill(Color.BLUE);
         caption.setFont(Font.font("Verdana", 15));
 
-        Rectangle pRect = new Rectangle();
-        pRect.setX(-1000);
-        pRect.setY(-1000);
+        Rect pRect = new Rect();
+        pRect.setX(500);
+        pRect.setY(420);
         pRect.setHeight(fieldLength);
         pRect.setWidth(fieldLength);
         pRect.setFill(Color.TRANSPARENT);
         pRect.setStroke(Color.RED);
         pRect.setStrokeWidth(3);
 
+        Rect rRect = new Rect();
+        rRect.setX(550);
+        rRect.setY(420);
+        rRect.setHeight(fieldLength);
+        rRect.setWidth(fieldLength);
+        rRect.setFill(Color.TRANSPARENT);
+        rRect.setStroke(Color.DARKBLUE);
+        rRect.setStrokeWidth(3);
+
+        rRect.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent t) {
+                rRect.setFill(Color.GREEN);
+            }
+        });
+
         Group root = new Group();
         root.getChildren().add(0, Grate.getGrate(offsetXFirst, offsetYFirst, fieldLength, fieldCount));
         root.getChildren().add(1, Grate.getGrate(offsetXSecond, offsetYSecond, fieldLength, fieldCount));
         root.getChildren().add(2, caption);
         root.getChildren().add(3, pRect);
+        root.getChildren().add(4, rRect);
 
         Scene scene = new Scene(root, 900, 500, Color.ALICEBLUE);
 
@@ -69,8 +89,8 @@ public class ShipFight extends Application {
                 pRect.setX(offsetXSecond + fieldLength * X);
                 pRect.setY(offsetYSecond + fieldLength * Y);
             } else {
-                pRect.setX(-1000);
-                pRect.setY(-1000);
+                pRect.setX(500);
+                pRect.setY(420);
             }
         });
 
