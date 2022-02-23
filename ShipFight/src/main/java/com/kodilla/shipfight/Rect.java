@@ -7,6 +7,7 @@ public class Rect extends Rectangle {
     private int defaultY;
     private Direction direction = Direction.NONE;
     private int rank = 1;
+    private ShipStatus shipStatus = ShipStatus.NONE;
 
     public void setDefaultPosition(int X, int Y) {
         defaultX = X;
@@ -23,19 +24,15 @@ public class Rect extends Rectangle {
     public void setRank(int rank) {
         this.rank = rank;
     }
-
     public int getDefaultX() {
         return defaultX;
     }
-
     public int getDefaultY() {
         return defaultY;
     }
-
     public Direction getDirection() {
         return direction;
     }
-
     public int getRank() {
         return rank;
     }

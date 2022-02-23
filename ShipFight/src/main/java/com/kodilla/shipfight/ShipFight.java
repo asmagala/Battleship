@@ -10,7 +10,12 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ShipFight extends Application {
+
+    List<Rect> ships = new ArrayList<>();
 
     private GratePosition lGratePosition = new GratePosition(100, 100, 30, 10);
     private GratePosition rGratePosition = new GratePosition(500, 100, 30, 10);
@@ -42,7 +47,7 @@ public class ShipFight extends Application {
         pRect.setWidth(lGratePosition.getFieldLength());
         pRect.setFill(Color.TRANSPARENT);
         pRect.setStroke(Color.RED);
-        pRect.setStrokeWidth(3);
+        pRect.setStrokeWidth(1);
 
         Rect rRect = new Rect();
         rRect.setX(550);
@@ -51,7 +56,10 @@ public class ShipFight extends Application {
         rRect.setWidth(rGratePosition.getFieldLength());
         rRect.setFill(Color.TRANSPARENT);
         rRect.setStroke(Color.DARKBLUE);
-        rRect.setStrokeWidth(3);
+        rRect.setStrokeWidth(1);
+
+        ships.add(pRect);
+        ships.add(rRect);
 
         rRect.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
@@ -62,6 +70,8 @@ public class ShipFight extends Application {
                 } else {
                     rRect.setStroke(Color.DARKBLUE);
                 }
+                //caption.setText(t.getSource().toString() + "\n" + t.getTarget().toString());
+                caption.setText(ships.toString());
 
             }
         });
