@@ -57,7 +57,12 @@ public class ShipFight extends Application {
         {
             @Override
             public void handle(MouseEvent t) {
-                rRect.setFill(Color.GREEN);
+                if (rRect.getStroke() == Color.DARKBLUE) {
+                    rRect.setStroke(Color.GREEN);
+                } else {
+                    rRect.setStroke(Color.DARKBLUE);
+                }
+
             }
         });
 
