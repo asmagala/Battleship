@@ -24,4 +24,8 @@ public class Grate {
         }
         return root;
     }
+
+    public static Group getGrate(GratePosition gratePosition) {
+        return Grate.getGrate(gratePosition.getOffsetX(), gratePosition.getOffsetY(), gratePosition.getFieldLength(), gratePosition.getFieldCount());
+    }
 }

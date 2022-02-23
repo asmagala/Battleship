@@ -4,33 +4,24 @@ import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Control;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class ShipFight extends Application {
 
-    private int offsetXFirst = 100;
-    private int offsetYFirst = 100;
-    private int offsetXSecond = 500;
-    private int offsetYSecond = 100;
-    private int fieldLength = 30;
-    private int fieldCount = 10;
+    private GratePosition lGratePosition = new GratePosition(100, 100, 30, 10);
+    private GratePosition rGratePosition = new GratePosition(500, 100, 30, 10);
 
     public static void main(String[] args) {
         launch(args);
     }
 
-    private Boolean isInside(int pointX, int pointY, int offsetX, int offsetY, int fieldLength, int fieldCount ) {
-        if ((pointX > offsetX) && (pointX < offsetX + fieldCount * fieldLength) &&
-                (pointY > offsetY) && (pointY < offsetY + fieldLength * fieldCount)) {
+    private Boolean isInside(int pointX, int pointY, GratePosition grate ) {
+        if ((pointX > grate.getOffsetX()) && (pointX < grate.getOffsetX() + grate.getFieldCount() * grate.getFieldLength()) &&
+                (pointY > grate.getOffsetY()) && (pointY < grate.getOffsetY() + grate.getFieldLength() * grate.getFieldCount())) {
             return true;
         } else {
             return false;
@@ -47,10 +38,8 @@ public class ShipFight extends Application {
 
         Rect pRect = new Rect();
         pRect.setDefaultPosition(500, 420);
-        //pRect.setX(500);
-        //pRect.setY(420);
-        pRect.setHeight(fieldLength);
-        pRect.setWidth(fieldLength);
+        pRect.setHeight(lGratePosition.getFieldLength());
+        pRect.setWidth(lGratePosition.getFieldLength());
         pRect.setFill(Color.TRANSPARENT);
         pRect.setStroke(Color.RED);
         pRect.setStrokeWidth(3);
@@ -58,8 +47,8 @@ public class ShipFight extends Application {
         Rect rRect = new Rect();
         rRect.setX(550);
         rRect.setY(420);
-        rRect.setHeight(fieldLength);
-        rRect.setWidth(fieldLength);
+        rRect.setHeight(rGratePosition.getFieldLength());
+        rRect.setWidth(rGratePosition.getFieldLength());
         rRect.setFill(Color.TRANSPARENT);
         rRect.setStroke(Color.DARKBLUE);
         rRect.setStrokeWidth(3);
@@ -73,8 +62,8 @@ public class ShipFight extends Application {
         });
 
         Group root = new Group();
-        root.getChildren().add(0, Grate.getGrate(offsetXFirst, offsetYFirst, fieldLength, fieldCount));
-        root.getChildren().add(1, Grate.getGrate(offsetXSecond, offsetYSecond, fieldLength, fieldCount));
+        root.getChildren().add(0, Grate.getGrate(lGratePosition));
+        root.getChildren().add(1, Grate.getGrate(rGratePosition));
         root.getChildren().add(2, caption);
         root.getChildren().add(3, pRect);
         root.getChildren().add(4, rRect);
@@ -82,16 +71,13 @@ public class ShipFight extends Application {
         Scene scene = new Scene(root, 900, 500, Color.ALICEBLUE);
 
         scene.setOnMouseMoved(e -> {
-            if (isInside((int)e.getX(), (int)e.getY(), offsetXSecond, offsetYSecond, fieldLength, fieldCount)) {
-
-                int X = (int) Math.floor((e.getX() - offsetXSecond) / fieldLength);
-                int Y = (int) Math.floor((e.getY() - offsetYSecond) / fieldLength);
+            if (isInside((int)e.getX(), (int)e.getY(), rGratePosition)) {   //offsetXSecond, offsetYSecond, fieldLength, fieldCount)) {
+                int X = (int) Math.floor((e.getX() - rGratePosition.getOffsetX()) / rGratePosition.getFieldLength());
+                int Y = (int) Math.floor((e.getY() - rGratePosition.getOffsetY()) / rGratePosition.getFieldLength());
                 caption.setText("X = " + X + " Y = " + Y );
-                pRect.setX(offsetXSecond + fieldLength * X);
-                pRect.setY(offsetYSecond + fieldLength * Y);
+                pRect.setX(GrateConverter.TableX2Pixel(rGratePosition, X));
+                pRect.setY(GrateConverter.TableY2Pixel(rGratePosition, Y));
             } else {
-                //pRect.setX(500);
-                //pRect.setY(420);
                 pRect.setPosition2Default();
             }
         });
