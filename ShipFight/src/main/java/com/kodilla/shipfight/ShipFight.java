@@ -86,8 +86,12 @@ public class ShipFight extends Application {
                 } else {
                     for (Rect ship : ships) {
                         ship.setShipStatus(ShipStatus.NONE);
-                        //ship.setStrokeWidth(1);
-                        //ship.setStroke(Color.DARKBLUE);
+
+                        if ((ship.getX() == ship.getDefaultX()) && (ship.getY() == ship.getDefaultY())) {
+                            ship.setStrokeWidth(1);
+                            ship.setStroke(Color.DARKBLUE);
+                        }
+
                     }
                     ships.get(ix).setStrokeWidth(4);
                     ships.get(ix).setShipStatus(ShipStatus.CHOSEN);
