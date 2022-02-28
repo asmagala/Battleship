@@ -4,18 +4,25 @@ import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+//import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ShipFight extends Application {
 
     List<Rect> ships = new ArrayList<>();
+    ShipFieldArr myField = new ShipFieldArr();
+    ShipFieldArr enemyField = new ShipFieldArr();
+    Button readyButton = new Button("I'm ready!");
+    Button newGameButton = new Button("New Game");
+
     private int idx;
 
     private GratePosition lGratePosition = new GratePosition(100, 100, 30, 10);
@@ -42,8 +49,15 @@ public class ShipFight extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        myField.initShipField();
+        enemyField.initShipField();
+        readyButton.setLayoutX(300);
+        readyButton.setLayoutY(50);
+        newGameButton.setLayoutX(200);
+        newGameButton.setLayoutY(50);
 
-        Text caption = new Text(120, 60, "Smiley Face");
+
+        Text caption = new Text(100, 30, "Smiley Face");
         caption.setFill(Color.BLUE);
         caption.setFont(Font.font("Verdana", 15));
 /*
@@ -171,8 +185,11 @@ public class ShipFight extends Application {
         root.getChildren().add(0, Grate.getGrate(lGratePosition));
         root.getChildren().add(1, Grate.getGrate(rGratePosition));
         root.getChildren().add(2, caption);
+        root.getChildren().add(3, readyButton);
+        root.getChildren().add(4, newGameButton);
+
         for(int i = 0; i < 10; i++) {
-            root.getChildren().add(3 + i, ships.get(i));
+            root.getChildren().add(5 + i, ships.get(i));
         }
 
         Scene scene = new Scene(root, 900, 600, Color.ALICEBLUE);
@@ -184,9 +201,6 @@ public class ShipFight extends Application {
                 caption.setText("jjjjjj" +  ships.get(idx).getShipStatus());
                 ships.get(idx).setX(GrateConverter.TableX2Pixel(lGratePosition, X));
                 ships.get(idx).setY(GrateConverter.TableY2Pixel(lGratePosition, Y));
-
-
-
             } else {
                 // ships.get(idx).setPosition2Default();
             }
@@ -200,6 +214,8 @@ public class ShipFight extends Application {
                 caption.setText(event.getTarget().getClass().getSimpleName() + " " + idx);
             }
         });
+
+        readyButton.setOnAction(event -> root.getChildren());
 
 
 /*
