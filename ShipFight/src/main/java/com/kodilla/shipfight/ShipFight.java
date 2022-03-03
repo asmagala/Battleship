@@ -1,17 +1,14 @@
 package com.kodilla.shipfight;
 
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-//import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +21,7 @@ public class ShipFight extends Application {
     Button newGameButton = new Button("New Game");
 
     private int idx;
+    private boolean isReady = false;
 
     private GratePosition lGratePosition = new GratePosition(100, 100, 30, 10);
     private GratePosition rGratePosition = new GratePosition(500, 100, 30, 10);
@@ -56,29 +54,10 @@ public class ShipFight extends Application {
         newGameButton.setLayoutX(200);
         newGameButton.setLayoutY(50);
 
-
         Text caption = new Text(100, 30, "Smiley Face");
         caption.setFill(Color.BLUE);
         caption.setFont(Font.font("Verdana", 15));
-/*
-        Rect pRect = new Rect();
-        pRect.setDefaultPosition(500, 10);
-        pRect.setHeight(lGratePosition.getFieldLength());
-        pRect.setWidth(lGratePosition.getFieldLength());
-        pRect.setFill(Color.TRANSPARENT);
-        pRect.setStroke(Color.RED);
-        pRect.setStrokeWidth(1);
-        pRect.setIndex(0);
 
-        Rect rRect = new Rect();
-        rRect.setDefaultPosition(550, 10);
-        rRect.setHeight(rGratePosition.getFieldLength());
-        rRect.setWidth(rGratePosition.getFieldLength());
-        rRect.setFill(Color.TRANSPARENT);
-        rRect.setStroke(Color.DARKBLUE);
-        rRect.setStrokeWidth(1);
-        rRect.setIndex(1);
-*/
         for(int i = 0; i < 10; i++) {
             ships.add(i, new Rect());
             ships.get(i).setIndex(i);
@@ -105,7 +84,6 @@ public class ShipFight extends Application {
                             ship.setStrokeWidth(1);
                             ship.setStroke(Color.DARKBLUE);
                         }
-
                     }
                     ships.get(ix).setStrokeWidth(4);
                     ships.get(ix).setShipStatus(ShipStatus.CHOSEN);
@@ -146,6 +124,8 @@ public class ShipFight extends Application {
             ships.get(i + 4).setDefaultPosition(
                     lGratePosition.getOffsetX() + i * ( 2 * lGratePosition.getFieldLength() + 5),
                     lGratePosition.getOffsetY() + lGratePosition.getFieldLength() * lGratePosition.getFieldCount() + lGratePosition.getFieldLength() + 10);
+            ships.get(i + 4).setRank(2);
+            ships.get(i + 4).setDirection(Direction.HORIZONTAL);
             ships.get(i + 4).setWidth(2 * lGratePosition.getFieldLength());
         }
 
@@ -153,18 +133,17 @@ public class ShipFight extends Application {
             ships.get(i + 7).setDefaultPosition(
                     lGratePosition.getOffsetX() + i * ( 3 * lGratePosition.getFieldLength() + 5),
                     lGratePosition.getOffsetY() + lGratePosition.getFieldLength() * lGratePosition.getFieldCount() + 2 *  lGratePosition.getFieldLength() + 15);
+            ships.get(i + 7).setRank(3);
+            ships.get(i + 7).setDirection(Direction.HORIZONTAL);
             ships.get(i + 7).setWidth(3 * lGratePosition.getFieldLength());
         }
 
         ships.get(9).setDefaultPosition(
                 lGratePosition.getOffsetX(),
                 lGratePosition.getOffsetY() + lGratePosition.getFieldLength() * lGratePosition.getFieldCount() + 3 *  lGratePosition.getFieldLength() + 20);
+        ships.get(9).setRank(4);;
+        ships.get(9).setDirection(Direction.HORIZONTAL);
         ships.get(9).setWidth(4 * lGratePosition.getFieldLength());
-
-
-
-
-
 /*
         rRect.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
@@ -215,7 +194,20 @@ public class ShipFight extends Application {
             }
         });
 
-        readyButton.setOnAction(event -> root.getChildren());
+        readyButton.setOnAction(event -> {
+            caption.setText("I'm ready!!!");
+        });
+
+        newGameButton.setOnAction(event -> {
+            for( int i = 0; i < ships.size(); i++) {
+                ships.get(i).setX(ships.get(i).getDefaultX());
+                ships.get(i).setY(ships.get(i).getDefaultY());
+                ships.get(i).setStrokeWidth(1);
+            }
+            caption.setText("You can start new game now.");
+        });
+
+
 
 
 /*
