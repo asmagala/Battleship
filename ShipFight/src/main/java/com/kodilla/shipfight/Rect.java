@@ -2,13 +2,14 @@ package com.kodilla.shipfight;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class Rect extends Rectangle {
     private int index;
     private int defaultX;
     private int defaultY;
-    private Direction direction = Direction.NONE;
+    private Direction direction = Direction.HORIZONTAL;
     private int rank = 1;
     private ShipStatus shipStatus = ShipStatus.NONE;
 
@@ -23,6 +24,7 @@ public class Rect extends Rectangle {
     }
     public void setDirection(Direction dir) {
         direction = dir;
+
     }
     public void setRank(int rank) {
         this.rank = rank;

@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -194,6 +195,25 @@ public class ShipFight extends Application {
             }
         });
 
+        scene.setOnScroll((ScrollEvent event) -> {
+            for(Rect ship : ships) {
+                if (ship.getShipStatus() == ShipStatus.CHOSEN) {
+                    if (ship.getDirection() == Direction.HORIZONTAL) {
+                        ship.setDirection(Direction.VERTICAL);
+                        ship.setHeight(ship.getRank() * lGratePosition.getFieldLength() );
+                        ship.setWidth(lGratePosition.getFieldLength() );
+                        ship.setStroke(Color.GREEN);
+                    } else {
+                        ship.setDirection(Direction.HORIZONTAL);
+                        ship.setWidth(ship.getRank() * lGratePosition.getFieldLength() );
+                        ship.setHeight(lGratePosition.getFieldLength() );
+                        ship.setStroke(Color.BROWN);
+                    }
+                    System.out.println("ship # " + ship.getIndex() + " direction is " + ship.getDirection().toString());
+                }
+            }
+        });
+
         readyButton.setOnAction(event -> {
             caption.setText("I'm ready!!!");
         });
@@ -202,7 +222,9 @@ public class ShipFight extends Application {
             for( int i = 0; i < ships.size(); i++) {
                 ships.get(i).setX(ships.get(i).getDefaultX());
                 ships.get(i).setY(ships.get(i).getDefaultY());
+                ships.get(i).setStroke(Color.DARKBLUE);
                 ships.get(i).setStrokeWidth(1);
+                ships.get(i).setDirection(Direction.HORIZONTAL);
             }
             caption.setText("You can start new game now.");
         });
