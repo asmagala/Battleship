@@ -12,6 +12,30 @@ public class Rect extends Rectangle {
     private Direction direction = Direction.HORIZONTAL;
     private int rank = 1;
     private ShipStatus shipStatus = ShipStatus.NONE;
+    private int oneUnitWidth, oneUnitHeight;
+
+    public int getOneUnitWidth() {
+        return oneUnitWidth;
+    }
+
+    public void setOneUnitWidth(int oneUnitWidth) {
+        this.oneUnitWidth = oneUnitWidth;
+    }
+
+    public int getOneUnitHeight() {
+        return oneUnitHeight;
+    }
+
+    public void setOneUnitHeight(int oneUnitHeight) {
+        this.oneUnitHeight = oneUnitHeight;
+    }
+
+    /*
+    public void Rect(int width, int height) {
+        this.oneUnitHeight = height;
+        this.oneUnitWidth = width;
+    }
+*/
 
     public void setDefaultPosition(int X, int Y) {
         defaultX = X;
@@ -24,6 +48,13 @@ public class Rect extends Rectangle {
     }
     public void setDirection(Direction dir) {
         direction = dir;
+        if (this.direction == Direction.HORIZONTAL) {
+            this.setHeight(this.oneUnitHeight);
+            this.setWidth(this.oneUnitWidth * rank);
+        } else {
+            this.setHeight(this.oneUnitHeight * rank);
+            this.setWidth(this.oneUnitWidth );
+        }
 
     }
     public void setRank(int rank) {

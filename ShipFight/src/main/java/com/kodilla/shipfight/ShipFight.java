@@ -62,8 +62,11 @@ public class ShipFight extends Application {
         for(int i = 0; i < 10; i++) {
             ships.add(i, new Rect());
             ships.get(i).setIndex(i);
-            ships.get(i).setHeight(lGratePosition.getFieldLength());
-            ships.get(i).setWidth(lGratePosition.getFieldLength());
+            ships.get(i).setOneUnitHeight(lGratePosition.getFieldLength());
+            ships.get(i).setOneUnitWidth(lGratePosition.getFieldLength());
+
+            ships.get(i).setDirection(Direction.HORIZONTAL);
+
             ships.get(i).setFill(Color.TRANSPARENT);
             ships.get(i).setStroke(Color.DARKBLUE);
             ships.get(i).setStrokeWidth(1);
