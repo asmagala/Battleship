@@ -30,13 +30,6 @@ public class Rect extends Rectangle {
         this.oneUnitHeight = oneUnitHeight;
     }
 
-    /*
-    public void Rect(int width, int height) {
-        this.oneUnitHeight = height;
-        this.oneUnitWidth = width;
-    }
-*/
-
     public void setDefaultPosition(int X, int Y) {
         defaultX = X;
         defaultY = Y;
