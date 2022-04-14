@@ -10,5 +10,13 @@ public class GrateConverter {
         return grate.getOffsetY() + tableY * grate.getFieldLength();
     }
 
+    public static int PixelX2TableX(GratePosition grate, int pixelX) {
+        return (int) Math.floor((pixelX - grate.getOffsetX()) / grate.getFieldLength());
+    }
+
+    public static int PixelY2TableY(GratePosition grate, int pixelY) {
+        return (int) Math.floor((pixelY - grate.getOffsetY()) / grate.getFieldLength());
+    }
+
 
 }

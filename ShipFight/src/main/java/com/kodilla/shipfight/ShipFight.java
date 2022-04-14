@@ -145,10 +145,11 @@ public class ShipFight extends Application {
         ships.get(9).setDefaultPosition(
                 lGratePosition.getOffsetX(),
                 lGratePosition.getOffsetY() + lGratePosition.getFieldLength() * lGratePosition.getFieldCount() + 3 *  lGratePosition.getFieldLength() + 20);
-        ships.get(9).setRank(4);;
+        ships.get(9).setRank(4);
         ships.get(9).setDirection(Direction.HORIZONTAL);
         ships.get(9).setWidth(4 * lGratePosition.getFieldLength());
-/*
+
+        /*
         rRect.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
             @Override
@@ -163,7 +164,8 @@ public class ShipFight extends Application {
 
             }
         });
-*/
+    */
+
         Group root = new Group();
         root.getChildren().add(0, Grate.getGrate(lGratePosition));
         root.getChildren().add(1, Grate.getGrate(rGratePosition));
@@ -178,14 +180,25 @@ public class ShipFight extends Application {
         Scene scene = new Scene(root, 900, 600, Color.ALICEBLUE);
 
         scene.setOnMouseMoved(e -> {
+
             if ((isInside((int)e.getX(), (int)e.getY(), lGratePosition)) && (ships.get(idx).getShipStatus().equals(ShipStatus.CHOSEN))){
-                int X = (int) Math.floor((e.getX() - lGratePosition.getOffsetX()) / lGratePosition.getFieldLength());
-                int Y = (int) Math.floor((e.getY() - lGratePosition.getOffsetY()) / lGratePosition.getFieldLength());
+
+
+                int X = GrateConverter.PixelX2TableX(lGratePosition, (int)e.getX());
+                int Y = GrateConverter.PixelY2TableY(lGratePosition, (int)e.getY());
                 caption.setText("jjjjjj" +  ships.get(idx).getShipStatus());
+
+                int rank = ships.get(idx).getRank();
+                Direction direction = ships.get(idx).getDirection();
+                if ((rank > 1) && (direction == Direction.HORIZONTAL) && (X > (lGratePosition.getFieldCount() - rank))) {
+                    X = lGratePosition.getFieldCount() - rank;
+                }
+                if ((rank > 1) && (direction == Direction.VERTICAL) && (Y > (lGratePosition.getFieldCount() - rank))) {
+                    Y = lGratePosition.getFieldCount() - rank;
+                }
+
                 ships.get(idx).setX(GrateConverter.TableX2Pixel(lGratePosition, X));
                 ships.get(idx).setY(GrateConverter.TableY2Pixel(lGratePosition, Y));
-            } else {
-                // ships.get(idx).setPosition2Default();
             }
         });
 
@@ -232,9 +245,6 @@ public class ShipFight extends Application {
             caption.setText("You can start new game now.");
         });
 
-
-
-
 /*
         scene.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
@@ -257,9 +267,6 @@ public class ShipFight extends Application {
             }
         });
 */
-
-
-
 
         primaryStage.setTitle("Ship Battle");
         primaryStage.setScene(scene);

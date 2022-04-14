@@ -39,6 +39,7 @@ public class Rect extends Rectangle {
         setX(defaultX);
         setY(defaultY);
     }
+
     public void setDirection(Direction dir) {
         direction = dir;
         if (this.direction == Direction.HORIZONTAL) {
@@ -48,17 +49,20 @@ public class Rect extends Rectangle {
             this.setHeight(this.oneUnitHeight * rank);
             this.setWidth(this.oneUnitWidth );
         }
-
     }
+
     public void setRank(int rank) {
         this.rank = rank;
     }
+
     public int getDefaultX() {
         return defaultX;
     }
+
     public int getDefaultY() {
         return defaultY;
     }
+
     public Direction getDirection() {
         return direction;
     }
