@@ -18,5 +18,24 @@ public class GrateConverter {
         return (int) Math.floor((pixelY - grate.getOffsetY()) / grate.getFieldLength());
     }
 
+    public static int CorrectX(GratePosition grate, Rect ship, int X) {
+        int rank = ship.getRank();
+        Direction direction = ship.getDirection();
+        if ((rank > 1) && (direction == Direction.HORIZONTAL) && (X > (grate.getFieldCount() - rank))) {
+            X = grate.getFieldCount() - rank;
+        }
+        return X;
+    }
+
+    public static int CorrectY(GratePosition grate, Rect ship, int Y) {
+        int rank = ship.getRank();
+        Direction direction = ship.getDirection();
+
+        if ((rank > 1) && (direction == Direction.VERTICAL) && (Y > (grate.getFieldCount() - rank))) {
+            Y = grate.getFieldCount() - rank;
+        }
+        return Y;
+    }
+
 
 }

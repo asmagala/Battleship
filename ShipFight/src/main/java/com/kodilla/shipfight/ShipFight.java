@@ -188,6 +188,7 @@ public class ShipFight extends Application {
                 int Y = GrateConverter.PixelY2TableY(lGratePosition, (int)e.getY());
                 caption.setText("jjjjjj" +  ships.get(idx).getShipStatus());
 
+                /*
                 int rank = ships.get(idx).getRank();
                 Direction direction = ships.get(idx).getDirection();
                 if ((rank > 1) && (direction == Direction.HORIZONTAL) && (X > (lGratePosition.getFieldCount() - rank))) {
@@ -196,6 +197,10 @@ public class ShipFight extends Application {
                 if ((rank > 1) && (direction == Direction.VERTICAL) && (Y > (lGratePosition.getFieldCount() - rank))) {
                     Y = lGratePosition.getFieldCount() - rank;
                 }
+
+                 */
+                X = GrateConverter.CorrectX(lGratePosition, ships.get(idx), X);
+                Y = GrateConverter.CorrectY(lGratePosition, ships.get(idx), Y);
 
                 ships.get(idx).setX(GrateConverter.TableX2Pixel(lGratePosition, X));
                 ships.get(idx).setY(GrateConverter.TableY2Pixel(lGratePosition, Y));
